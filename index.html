@@ -20,6 +20,13 @@
   </head>
   <body>
     <main id="main">
+     
+      <form>
+      <input type="text" name="searchTerms" id="searchTerms">
+      <input type="submit" name="search" onclick="searchRepositories()">
+      </form>
+
+
       <div id="errors"></div>
     </main>
     <div class="flexbox-container">
@@ -32,6 +39,38 @@
         <div id="details"></div>
       </div>
     </div>
+    <script id="results-template" type="text/x-handlebars-template">
+      <ul>
+       {{#each items}}
+         <li>
+           <h2><a href="{{html_url}}">{{name}}</a></h2>
+           <p>Name: {{name}}</p>
+           <p>Description: {{description}}</p>
+           <a href="#" data-login="{{owner.login}}" data-name="{{name}}"onclick="showCommits(this)">Show Commits</a>
+
+         </li>
+        {{/each}}
+      </ul>
+    </script>
+
+    <script id="commits-template" type="text/x-handlebars-template">
+      <ul>
+      {{#each this}}
+       <p>SHA: {{sha}} </p>
+       <p>Author name: {{author.name}} </p>
+       <p>Author login: {{author.login}} </p>
+        <img src="{{author.avatar_url}}"/>
+
+      {{/each}}
+      </ul>
+    </script>
+
+
+ <script id="user-details-partial" type="text/x-handlebars-template">
+      <h4><a href="{{ url }}">{{ login }}</a></h4>
+      <img width="32px" height="32px" src="{{ avatar_url }}">
+    </script>
+  
     <script src="jquery-3.1.0.min.js"></script>
     <script src="handlebars.js"></script>
     <script src="index.js"></script>
